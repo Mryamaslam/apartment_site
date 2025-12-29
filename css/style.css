@@ -1,0 +1,212 @@
+:root {
+    --primary-red: #8B0000;
+    --primary-gold: #D4AF37;
+    --secondary-white: #FFFFFF;
+    --secondary-black: #000000;
+    --highlight-blue: #17a2b8; /* Soft blue for trust elements */
+    --text-dark: #333333;
+    --text-light: #f8f9fa;
+    --bg-light: #f4f4f4;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--secondary-white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.navbar-brand img {
+    height: 75px; /* Adjust based on logo aspect ratio */
+}
+
+.nav-link {
+    color: var(--secondary-black) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    color: var(--primary-red) !important;
+}
+
+.btn-book-now {
+    background-color: var(--primary-red);
+    color: var(--secondary-white) !important;
+    border: 2px solid var(--primary-red);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-book-now:hover {
+    background-color: transparent;
+    color: var(--primary-red) !important;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../assets/images/1_1 - Photo.png');
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--secondary-white);
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+.hero-content h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: var(--primary-gold);
+}
+
+/* Section Styling */
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    color: var(--primary-red);
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-gold);
+}
+
+.bg-red {
+    background-color: var(--primary-red);
+    color: var(--secondary-white);
+}
+
+.bg-red h2, .bg-red h3, .bg-red p {
+    color: var(--secondary-white);
+}
+
+.bg-red .section-title h2 {
+    color: var(--secondary-white);
+}
+
+/* Buttons */
+.btn-primary-custom {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-primary-custom:hover {
+    background-color: #660000;
+    color: white;
+}
+
+.btn-gold {
+    background-color: var(--primary-gold);
+    color: var(--secondary-black);
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background-color: #222;
+    color: #fff;
+    padding: 50px 0 20px;
+}
+
+footer h4 {
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+}
+
+footer a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--primary-gold);
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Amenities Icons */
+.amenity-card {
+    text-align: center;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: 0.3s;
+    background: white;
+    height: 100%;
+}
+
+.amenity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: var(--primary-gold);
+}
+
+.amenity-icon {
+    font-size: 3rem;
+    color: var(--highlight-blue);
+    margin-bottom: 20px;
+}
+
+/* Cards */
+.card-custom {
+    border: none;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card-custom:hover {
+    transform: scale(1.02);
+}
+
+.card-header-custom {
+    background-color: var(--primary-red);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}

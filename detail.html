@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Details | Fallete’s Service Apartments</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/images/logo-falletes.png" alt="Fallete's Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                <span style="display:none; font-weight:bold; color:var(--primary-red);">FALLETE'S</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="apartments.html">Apartments</a></li>
+                    <li class="nav-item"><a class="nav-link" href="amenities.html">Amenities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="location.html">Location</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="d-flex align-items-center">
+                <a href="contact.html" class="btn btn-book-now me-3">Book Now</a>
+                <!-- Right Logo (Developer) -->
+                <a class="navbar-brand ms-3" href="#">
+                    <img src="assets/images/logo-cityscape-fixed.png" alt="Cityscape Logo" style="filter: invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                     <span style="display:none; font-size:0.8rem; color:var(--text-dark);">Cityscape</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="bg-light py-3">
+        <div class="container">
+            <a href="index.html" class="text-decoration-none text-muted">Home</a> <span class="mx-2">/</span>
+            <a href="#" id="back-link" class="text-decoration-none text-muted">Category</a> <span class="mx-2">/</span>
+            <span class="text-danger fw-bold" id="crumb-name">Detail</span>
+        </div>
+    </div>
+
+    <!-- Detail Content -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row" id="detail-container">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container text-center">
+            <img src="assets/images/logo-cityscape-fixed.png" alt="Fallete's Logo" class="mb-3" style="max-height: 120px;">
+            <h2 class="mb-3">Fallete’s Service Apartments</h2>
+            <p class="mb-4">Live Better. Live Beautiful. A smart lifestyle. A smarter investment.</p>
+            <div class="social-icons mb-4">
+                <a href="https://www.facebook.com/p/City-Scape-Heights-61560563482822/" target="_blank" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/cityscape_heights_/" target="_blank" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p class="small text-muted">&copy; 2025 Fallete’s Service Apartments. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Data JS -->
+    <script src="js/data.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type');
+            const id = urlParams.get('id');
+            
+            const container = document.getElementById('detail-container');
+            const backLink = document.getElementById('back-link');
+            const crumbName = document.getElementById('crumb-name');
+
+            if (type && id && apartmentData[type]) {
+                const category = apartmentData[type];
+                const unit = category.subUnits.find(u => u.id === id);
+
+                if (unit) {
+                    backLink.textContent = category.title;
+                    backLink.href = `category.html?type=${type}`;
+                    crumbName.textContent = unit.name;
+
+                    // Build Carousel or Single Image
+                    let imageHtml = '';
+                    if (unit.gallery && unit.gallery.length > 0) {
+                        const indicators = unit.gallery.map((_, index) => 
+                            `<button type="button" data-bs-target="#apartmentCarousel" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" aria-current="${index === 0 ? 'true' : 'false'}" aria-label="Slide ${index + 1}"></button>`
+                        ).join('');
+
+                        const items = unit.gallery.map((img, index) => 
+                            `<div class="carousel-item ${index === 0 ? 'active' : ''}">
+                                <img src="${img}" class="d-block w-100" alt="${unit.name} - Image ${index + 1}" onerror="this.src='assets/images/logo-falletes.png'">
+                            </div>`
+                        ).join('');
+
+                        imageHtml = `
+                            <div id="apartmentCarousel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    ${indicators}
+                                </div>
+                                <div class="carousel-inner rounded shadow-sm">
+                                    ${items}
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#apartmentCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#apartmentCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        `;
+                    } else {
+                        imageHtml = `
+                            <div class="card border-0 shadow-sm overflow-hidden">
+                                <img src="${unit.image}" class="img-fluid w-100" alt="${unit.name}" onerror="this.src='assets/images/logo-falletes.png'">
+                            </div>
+                        `;
+                    }
+
+                    container.innerHTML = `
+                        <div class="col-lg-7 mb-4">
+                            ${imageHtml}
+                            <div class="mt-4">
+                                <h3 class="fw-bold">About This Apartment</h3>
+                                <p class="text-muted">${unit.desc || "Experience luxury living with premium finishes and smart design. This unit offers the perfect blend of comfort and style, situated in a prime location."}</p>
+                                <h4 class="fw-bold mt-4">Features</h4>
+                                <ul class="row list-unstyled">
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Smart Kitchenette</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> High-Speed Internet</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> 24/7 Security</li>
+                                    <li class="col-md-6 mb-2"><i class="fas fa-check text-success me-2"></i> Power Backup</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="card border-0 shadow-sm p-4 bg-light">
+                                <div class="badge bg-warning text-dark mb-3 px-3 py-2">Available Now</div>
+                                <h2 class="fw-bold mb-1">${unit.name}</h2>
+                                <p class="text-muted mb-4">${category.title}</p>
+                                
+                                <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                                    <span><i class="fas fa-ruler-combined me-2"></i> Size</span>
+                                    <span class="fw-bold">${unit.size} Sq. Ft.</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                                    <span><i class="fas fa-money-bill-wave me-2"></i> Total Price</span>
+                                    <span class="fw-bold text-danger">PKR ${unit.price}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <span><i class="fas fa-hand-holding-usd me-2"></i> Down Payment</span>
+                                    <span class="fw-bold text-dark">PKR ${unit.downPayment}</span>
+                                </div>
+
+                                <a href="contact.html?interest=${encodeURIComponent(unit.name)}" class="btn btn-primary-custom w-100 py-3 fw-bold">Book This Apartment</a>
+                                <div class="text-center mt-3">
+                                    <small class="text-muted">Or call us at <strong>0300-4485455</strong></small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = '<div class="col-12 text-center"><h3>Apartment not found.</h3></div>';
+                }
+            } else {
+                container.innerHTML = '<div class="col-12 text-center"><h3>Invalid request.</h3></div>';
+            }
+        });
+    </script>
+</body>
+</html>

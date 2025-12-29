@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Categories | Fallete’s Service Apartments</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/images/logo-falletes.png" alt="Fallete's Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                <span style="display:none; font-weight:bold; color:var(--primary-red);">FALLETE'S</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="apartments.html">Apartments</a></li>
+                    <li class="nav-item"><a class="nav-link" href="amenities.html">Amenities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="location.html">Location</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="d-flex align-items-center">
+                <a href="contact.html" class="btn btn-book-now me-3">Book Now</a>
+                <!-- Right Logo (Developer) -->
+                <a class="navbar-brand ms-3" href="#">
+                    <img src="assets/images/logo-cityscape-fixed.png" alt="Cityscape Logo" style="filter: invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                     <span style="display:none; font-size:0.8rem; color:var(--text-dark);">Cityscape</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="bg-red py-5 text-center">
+        <div class="container">
+            <h1 class="text-white display-4" id="category-title">Apartments</h1>
+            <p class="lead text-white-50" id="category-desc">Select an apartment to view details</p>
+        </div>
+    </header>
+
+    <!-- Categories List -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row" id="sub-units-container">
+                <!-- Content will be injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container text-center">
+            <img src="assets/images/logo-cityscape-fixed.png" alt="Fallete's Logo" class="mb-3" style="max-height: 120px;">
+            <h2 class="mb-3">Fallete’s Service Apartments</h2>
+            <p class="mb-4">Live Better. Live Beautiful. A smart lifestyle. A smarter investment.</p>
+            <div class="social-icons mb-4">
+                <a href="https://www.facebook.com/p/City-Scape-Heights-61560563482822/" target="_blank" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/cityscape_heights_/" target="_blank" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p class="small text-muted">&copy; 2025 Fallete’s Service Apartments. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Data JS -->
+    <script src="js/data.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type');
+            const container = document.getElementById('sub-units-container');
+            const titleEl = document.getElementById('category-title');
+            const descEl = document.getElementById('category-desc');
+
+            if (type && apartmentData[type]) {
+                const data = apartmentData[type];
+                titleEl.textContent = data.title;
+                descEl.textContent = data.description;
+
+                data.subUnits.forEach(unit => {
+                    const col = document.createElement('div');
+                    col.className = 'col-lg-4 col-md-6 mb-4';
+                    col.innerHTML = `
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative overflow-hidden" style="height: 250px;">
+                                <img src="${unit.image}" class="img-fluid w-100 h-100 object-fit-cover" alt="${unit.name}" onerror="this.src='assets/images/logo-falletes.png'">
+                                <div class="position-absolute bottom-0 start-0 bg-dark text-white px-3 py-1 m-2 rounded bg-opacity-75">${unit.size} Sq. Ft.</div>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title fw-bold">${unit.name}</h4>
+                                <p class="text-muted mb-2">Starting Price</p>
+                                <h5 class="text-danger fw-bold mb-3">PKR ${unit.price}</h5>
+                                <a href="detail.html?type=${type}&id=${unit.id}" class="btn btn-primary-custom w-100">View Details</a>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(col);
+                });
+            } else {
+                container.innerHTML = '<div class="col-12 text-center"><p>Category not found. <a href="index.html">Go back home</a>.</p></div>';
+            }
+        });
+    </script>
+</body>
+</html>

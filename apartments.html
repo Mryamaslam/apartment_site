@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="assets/images/logo-cityscape-fixed.png" alt="Fallete's Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                <img loading="lazy" src="assets/images/logo-cityscape-fixed.png" alt="Fallete's Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                 <span style="display:none; font-weight:bold; color:var(--primary-red);">FALLETE'S</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -37,7 +37,7 @@
                 <a href="contact.html" class="btn btn-book-now me-3">Book Now</a>
                 <!-- Right Logo (Developer) -->
                 <a class="navbar-brand ms-2" href="#">
-                    <img src="assets/images/logo-cityscape-fixed.png" alt="Cityscape Logo" style="filter: invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                    <img loading="lazy" src="assets/images/logo-cityscape-fixed.png" alt="Cityscape Logo" style="filter: invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                      <span style="display:none; font-size:0.8rem; color:var(--text-dark);">Cityscape</span>
                 </a>
             </div>
@@ -113,7 +113,7 @@
     <!-- Footer -->
     <footer class="bg-dark text-white py-5">
         <div class="container text-center">
-            <img src="assets/images/logo-cityscape-fixed.png" alt="Fallete's Logo" class="mb-3" style="max-height: 120px;">
+            <img loading="lazy" src="assets/images/logo-cityscape-fixed.png" alt="Fallete's Logo" class="mb-3" style="max-height: 120px;">
             <h2 class="mb-3">Fallete’s Service Apartments</h2>
             <p class="mb-4">Live Better. Live Beautiful. A smart lifestyle. A smarter investment.</p>
             <div class="social-icons mb-4">
@@ -194,7 +194,7 @@
                     col.innerHTML = `
                         <div class="card h-100 shadow-sm border-0">
                             <div class="position-relative overflow-hidden" style="height: 250px;">
-                                <img src="${unit.image}" class="img-fluid w-100 h-100 object-fit-cover" alt="${unit.name}" onerror="this.src='assets/images/logo-falletes.png'">
+                                <img loading="lazy" src="${unit.image}" class="img-fluid w-100 h-100 object-fit-cover" alt="${unit.name}" onerror="this.src='assets/images/logo-falletes.png'">
                                 <div class="position-absolute top-0 end-0 bg-danger text-white px-3 py-1 m-2 rounded-pill">PKR ${unit.price}</div>
                                 <div class="position-absolute bottom-0 start-0 bg-dark text-white px-3 py-1 m-2 rounded bg-opacity-75">${unit.size} Sq. Ft.</div>
                             </div>

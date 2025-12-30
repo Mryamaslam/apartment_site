@@ -2,7 +2,7 @@ const apartmentData = {
     "studio": {
         title: "Studio Apartments",
         description: "Efficient luxury designed for the modern professional.",
-        image: "assets/images/basemment/1.jpg",
+        image: "assets/images/STUDIO DELUXE/bed room.jpg",
         subUnits: [
             {
                 id: "deluxe-studio",

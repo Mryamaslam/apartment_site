@@ -271,6 +271,118 @@
         </div>
     </section>
 
+    <!-- Contact & Booking Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Contact Info -->
+                <div class="col-lg-4 mb-5">
+                    <div class="card bg-light border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h3 class="mb-4 text-danger">Get In Touch</h3>
+                            
+                            <div class="d-flex align-items-start mb-4">
+                                <i class="fas fa-map-marker-alt fa-2x text-warning me-3"></i>
+                                <div>
+                                    <h5 class="fw-bold">Visit Us</h5>
+                                    <p class="text-muted">Apartment site Lahore villas 11km Raiwind Road Near Adda Plot Lahore</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start mb-4">
+                                <i class="fas fa-phone-alt fa-2x text-warning me-3"></i>
+                                <div>
+                                    <h5 class="fw-bold">Call Us</h5>
+                                    <p class="text-muted mb-0">+92 300 1234567</p>
+                                    <p class="text-muted">+92 42 111 222 333</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start mb-4">
+                                <i class="fas fa-envelope fa-2x text-warning me-3"></i>
+                                <div>
+                                    <h5 class="fw-bold">Email Us</h5>
+                                    <p class="text-muted">info@falletes.com</p>
+                                    <p class="text-muted">sales@falletes.com</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 text-center">
+                                <a href="https://wa.me/923001234567" target="_blank" class="btn btn-success btn-lg w-100">
+                                    <i class="fab fa-whatsapp me-2"></i> Chat on WhatsApp
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="col-lg-8">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-header bg-dark text-white">
+                            <h4 class="mb-0">Booking Inquiry Form</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" placeholder="0300-0000000" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" placeholder="name@example.com">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Apartment Type</label>
+                                        <select class="form-select" id="apartmentSelect">
+                                            <option selected disabled>Select Apartment</option>
+                                            <option value="Studio">Studio Apartment</option>
+                                            <option value="1Bed">1 Bedroom Apartment</option>
+                                            <option value="2Bed">2 Bedroom Apartment</option>
+                                            <option value="3Bed">3 Bedroom Apartment</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">I am a...</label>
+                                        <select class="form-select">
+                                            <option>End User (Resident)</option>
+                                            <option>Investor</option>
+                                            <option>Agent</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Price Info (Simulated) -->
+                                <div class="alert alert-info d-none" id="priceAlert">
+                                    <strong>Estimated Starting Price:</strong> <span id="priceValue">PKR 0</span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Message</label>
+                                    <textarea class="form-control" rows="4" placeholder="Any specific requirements?"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary-custom w-100 btn-lg">Submit Inquiry</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -312,6 +424,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/script.js"></script>
+    <script>
+        // Simple script to show price estimation
+        const apartmentSelect = document.getElementById('apartmentSelect');
+        const priceAlert = document.getElementById('priceAlert');
+        const priceValue = document.getElementById('priceValue');
+
+        if(apartmentSelect) {
+            apartmentSelect.addEventListener('change', function() {
+                const val = this.value;
+                let price = "";
+                if(val === 'Studio') price = "PKR 775,000 (Booking)";
+                else if(val === '1Bed') price = "Call for Price";
+                else if(val === '2Bed') price = "Call for Price";
+                else if(val === '3Bed') price = "Call for Price";
+                
+                if(price) {
+                    priceValue.textContent = price;
+                    priceAlert.classList.remove('d-none');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
 

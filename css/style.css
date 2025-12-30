@@ -215,3 +215,32 @@ footer a:hover {
     text-align: center;
     font-weight: bold;
 }
+
+/* Mobile Optimizations */
+@media (max-width: 991px) {
+    /* Navbar Tweaks */
+    .navbar-brand img {
+        height: 50px; /* Smaller logo on mobile */
+    }
+    
+    /* Gallery Tabs Grid */
+    #galleryTab.nav-pills {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 columns */
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    #galleryTab .nav-item {
+        margin: 0;
+        width: 100%;
+    }
+    
+    #galleryTab .nav-link {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 5px;
+        font-size: 0.85rem; /* Slightly smaller text to fit */
+    }
+}

@@ -86,7 +86,7 @@
                     <label class="text-white-50 small mb-1">Location</label>
                     <select class="form-select bg-secondary text-white border-secondary" id="filter-location">
                         <option value="all">All</option>
-                        <option value="islamabad">Islamabad</option>
+                        <option value="lahore">Lahore</option>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -162,7 +162,7 @@
                             categoryType: key, // 'studio', '1-bed', '2-bed'
                             beds: beds,
                             baths: baths,
-                            location: 'islamabad',
+                            location: 'lahore',
                             numericPrice: parsePrice(unit.price)
                         });
                     });
@@ -203,7 +203,7 @@
                                 <div class="d-flex justify-content-between text-muted mb-3 small">
                                     <span><i class="fas fa-bed me-1"></i> ${bedsDisplay}</span>
                                     <span><i class="fas fa-bath me-1"></i> ${unit.baths} Bath</span>
-                                    <span><i class="fas fa-map-marker-alt me-1"></i> Islamabad</span>
+                                    <span><i class="fas fa-map-marker-alt me-1"></i> Lahore</span>
                                 </div>
                                 <a href="detail.html?type=${unit.categoryType}&id=${unit.id}" class="btn btn-primary-custom w-100">View Details</a>
                             </div>

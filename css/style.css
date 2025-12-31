@@ -56,16 +56,66 @@ body {
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../assets/images/1_1 - Photo.jpg');
-    background-size: cover;
-    background-position: center;
+    position: relative;
     height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: var(--secondary-white);
+    overflow: hidden; /* Ensure video doesn't spill out */
 }
+
+/* Video Background Styles */
+.hero-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    display: flex;
+}
+
+.hero-video-split {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-video-split video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay to darken video slightly for text readability */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Ensure text is above video and overlay */
+}
+
+@media (max-width: 991px) {
+    .hero-video-container {
+        flex-direction: column;
+    }
+    .hero-video-split {
+        width: 100%;
+        height: 50%;
+    }
+}
+
 
 .hero-content h1 {
     font-family: 'Cinzel', serif;
@@ -243,4 +293,27 @@ footer a:hover {
         padding: 10px 5px;
         font-size: 0.85rem; /* Slightly smaller text to fit */
     }
+
+    /* Hero Text Optimization */
+    .hero-content h1 {
+        font-size: 2rem; /* Reduced from 3.5rem */
+        line-height: 1.2;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.3rem; /* Reduced from 1.8rem */
+    }
+}
+
+/* Drop-In Scroll Animation */
+.drop-in {
+    opacity: 0;
+    transform: translateY(-40px); /* Drop from top */
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth settle */
+    will-change: opacity, transform;
+}
+
+.drop-in.visible {
+    opacity: 1;
+    transform: translateY(0);
 }

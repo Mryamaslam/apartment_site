@@ -124,13 +124,14 @@
 
             try {
                 const submissions = await getFormSubmissions();
+                console.log('Submissions loaded:', submissions);
 
                 // Clear existing rows
                 if (tbody) {
                     tbody.innerHTML = '';
 
-                    if (submissions.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No form submissions yet.</td></tr>';
+                    if (!submissions || submissions.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No form submissions yet. Submit a form from the website to see data here.</td></tr>';
                         return;
                     }
 
@@ -156,7 +157,11 @@
                 }
             } catch (error) {
                 if (tbody) {
-                    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger py-4">Error loading submissions. Please refresh.</td></tr>';
+                    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-danger py-4">
+                        Error loading submissions. <br>
+                        <small>Check browser console (F12) for details.</small><br>
+                        <button class="btn btn-sm btn-primary mt-2" onclick="loadFormSubmissions()">Try Again</button>
+                    </td></tr>`;
                 }
                 console.error('Error loading submissions:', error);
             }

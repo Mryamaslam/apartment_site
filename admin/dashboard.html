@@ -9,152 +9,92 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        body {
+            background-color: #f5f5f5;
+        }
         .sidebar {
             height: 100vh;
             background-color: #343a40;
             color: white;
             position: fixed;
-            width: 250px;
+            width: 220px;
             padding-top: 20px;
         }
         .sidebar a {
             color: #ddd;
-            padding: 15px 20px;
+            padding: 12px 20px;
             display: block;
             text-decoration: none;
+            font-size: 0.95rem;
         }
         .sidebar a:hover, .sidebar a.active {
             background-color: #8B0000;
             color: white;
         }
         .main-content {
-            margin-left: 250px;
+            margin-left: 220px;
             padding: 20px;
-        }
-        .stat-card {
-            border-left: 5px solid #8B0000;
         }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
+    <!-- Sidebar (simplified) -->
     <div class="sidebar">
         <h4 class="text-center mb-4">Fallete’s Admin</h4>
-        <a href="#" class="active"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
-        <a href="#"><i class="fas fa-building me-2"></i> Apartments</a>
-        <a href="#"><i class="fas fa-calendar-check me-2"></i> Bookings</a>
-        <a href="#"><i class="fas fa-users me-2"></i> Leads</a>
-        <a href="#"><i class="fas fa-money-check-alt me-2"></i> Installments</a>
-        <a href="#"><i class="fas fa-images me-2"></i> Gallery</a>
-        <a href="#"><i class="fas fa-comments me-2"></i> Testimonials</a>
-        <a href="#"><i class="fas fa-map-marked-alt me-2"></i> Location</a>
-        <a href="#"><i class="fas fa-cogs me-2"></i> Settings</a>
-        <a href="../index.html" class="mt-5 text-warning"><i class="fas fa-external-link-alt me-2"></i> View Site</a>
+        <a href="#" class="active"><i class="fas fa-tachometer-alt me-2"></i> Leads Dashboard</a>
+        <a href="#" onclick="loadFormSubmissions(); return false;"><i class="fas fa-users me-2"></i> Leads</a>
+        <a href="../index.html"><i class="fas fa-external-link-alt me-2"></i> View Site</a>
+        <a href="#" class="text-warning mt-4" onclick="logoutAdmin(); return false;"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
         <nav class="navbar navbar-light bg-light mb-4 shadow-sm">
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1">Dashboard Overview</span>
+                <span class="navbar-brand mb-0 h1">Leads Dashboard</span>
                 <div class="d-flex">
                     <span class="me-3">Welcome, Admin</span>
-                    <a href="#" class="text-danger">Logout</a>
+                    <a href="#" class="text-danger" onclick="logoutAdmin(); return false;">Logout</a>
                 </div>
             </div>
         </nav>
 
         <div class="row">
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-sm stat-card">
-                    <div class="card-body">
-                        <h5 class="card-title text-muted">Total Leads</h5>
-                        <h2 class="font-weight-bold">124</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-sm stat-card" style="border-left-color: #28a745;">
-                    <div class="card-body">
-                        <h5 class="card-title text-muted">Bookings</h5>
-                        <h2 class="font-weight-bold">45</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-sm stat-card" style="border-left-color: #ffc107;">
-                    <div class="card-body">
-                        <h5 class="card-title text-muted">Pending Inquiries</h5>
-                        <h2 class="font-weight-bold">12</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-sm stat-card" style="border-left-color: #17a2b8;">
-                    <div class="card-body">
-                        <h5 class="card-title text-muted">Total Visitors</h5>
-                        <h2 class="font-weight-bold">1,540</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-white">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Recent Leads</h5>
+                        <div>
+                            <button class="btn btn-sm btn-success me-2" onclick="exportToExcel()">
+                                <i class="fas fa-file-excel me-1"></i> Export to Excel
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="loadFormSubmissions()">
+                                <i class="fas fa-sync-alt me-1"></i> Refresh
+                            </button>
+                        </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                    <div class="table-responsive border-top">
+                        <table class="table table-hover mb-0" id="leadsTable">
                             <thead>
                                 <tr>
+                                    <th>Date & Time</th>
                                     <th>Name</th>
                                     <th>Phone</th>
-                                    <th>Interest</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
+                                    <th>Email</th>
+                                    <th>Apartment Type</th>
+                                    <th>User Type</th>
+                                    <th>Message</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="leadsTableBody">
                                 <tr>
-                                    <td>Ali Khan</td>
-                                    <td>0300-4485455</td>
-                                    <td>Studio Apt</td>
-                                    <td>Oct 25, 2024</td>
-                                    <td><span class="badge bg-warning text-dark">Pending</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Sara Ahmed</td>
-                                    <td>0321-9876543</td>
-                                    <td>2 Bed Apt</td>
-                                    <td>Oct 24, 2024</td>
-                                    <td><span class="badge bg-success">Contacted</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Usman Zafar</td>
-                                    <td>0333-5555555</td>
-                                    <td>1 Bed Apt</td>
-                                    <td>Oct 23, 2024</td>
-                                    <td><span class="badge bg-danger">Closed</span></td>
+                                    <td colspan="8" class="text-center text-muted py-4">Loading submissions...</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0">Notifications</h5>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i class="fas fa-bell text-warning me-2"></i> New inquiry received</li>
-                        <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i> Booking #45 confirmed</li>
-                        <li class="list-group-item"><i class="fas fa-user-plus text-info me-2"></i> New user registered</li>
-                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-danger me-2"></i> Server maintenance alert</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -162,5 +102,74 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/form-handler.js"></script>
+    <script>
+        // Simple front-end protection: require login flag in localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            loadFormSubmissions();
+        });
+
+        function loadFormSubmissions() {
+            const submissions = getFormSubmissions();
+            const tbody = document.getElementById('leadsTableBody');
+
+            // Clear existing rows
+            if (tbody) {
+                tbody.innerHTML = '';
+
+                if (submissions.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No form submissions yet.</td></tr>';
+                    return;
+                }
+
+                // Sort by date (newest first)
+                submissions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                // Display submissions
+                submissions.forEach(sub => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${sub.date || 'N/A'}</td>
+                        <td>${sub.fullName || 'N/A'}</td>
+                        <td><a href="tel:${sub.phoneNumber || ''}">${sub.phoneNumber || 'N/A'}</a></td>
+                        <td>${sub.email ? `<a href="mailto:${sub.email}">${sub.email}</a>` : 'N/A'}</td>
+                        <td>${sub.apartmentType || 'N/A'}</td>
+                        <td>${sub.userType || 'N/A'}</td>
+                        <td>${sub.message ? `<span title="${sub.message}">${sub.message.length > 30 ? sub.message.substring(0, 30) + '...' : sub.message}</span>` : 'N/A'}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="deleteSubmission(${sub.id})" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+        }
+
+        function deleteSubmission(id) {
+            if (confirm('Are you sure you want to delete this submission?')) {
+                let submissions = getFormSubmissions();
+                submissions = submissions.filter(sub => sub.id !== id);
+                localStorage.setItem('formSubmissions', JSON.stringify(submissions));
+                loadFormSubmissions();
+            }
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'login.html';
+        }
+
+        // Make functions globally available
+        window.loadFormSubmissions = loadFormSubmissions;
+        window.deleteSubmission = deleteSubmission;
+        window.logoutAdmin = logoutAdmin;
+    </script>
 </body>
 </html>

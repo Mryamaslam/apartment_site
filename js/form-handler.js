@@ -34,16 +34,23 @@ async function saveFormSubmission(formData) {
 // Function to get all form submissions from server (for admin)
 async function getFormSubmissions() {
     try {
-        const response = await fetch(getApiPath('get-submissions.php'));
+        const apiPath = getApiPath('get-submissions.php');
+        console.log('Fetching from:', apiPath);
+        
+        const response = await fetch(apiPath);
         
         if (!response.ok) {
-            throw new Error('Failed to fetch submissions');
+            const errorText = await response.text();
+            console.error('API Error:', response.status, errorText);
+            throw new Error(`Failed to fetch submissions: ${response.status}`);
         }
         
         const submissions = await response.json();
-        return submissions || [];
+        console.log('Received submissions:', submissions);
+        return Array.isArray(submissions) ? submissions : [];
     } catch (error) {
         console.error('Error fetching submissions:', error);
+        // Return empty array instead of throwing to show "No submissions" message
         return [];
     }
 }

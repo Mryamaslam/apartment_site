@@ -1,41 +1,70 @@
 // Form Handler for Contact Form Submissions
-// Stores form data in localStorage and provides export functionality
+// Saves form data to server via PHP API
 
-// Function to save form submission to localStorage
-function saveFormSubmission(formData) {
-    // Get existing submissions or create empty array
-    let submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
-    
-    // Add new submission with timestamp
-    const submission = {
-        id: Date.now(), // Unique ID based on timestamp
-        timestamp: new Date().toISOString(),
-        date: new Date().toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        }),
-        ...formData
-    };
-    
-    submissions.push(submission);
-    
-    // Save back to localStorage
-    localStorage.setItem('formSubmissions', JSON.stringify(submissions));
-    
-    return submission;
+// Get base path for API calls
+function getApiPath(endpoint) {
+    const isAdmin = window.location.pathname.includes('/admin/');
+    return isAdmin ? `../api/${endpoint}` : `api/${endpoint}`;
 }
 
-// Function to get all form submissions
-function getFormSubmissions() {
-    return JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+// Function to save form submission to server
+async function saveFormSubmission(formData) {
+    try {
+        const response = await fetch(getApiPath('save-submission.php'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            return result;
+        } else {
+            throw new Error(result.message || 'Failed to save submission');
+        }
+    } catch (error) {
+        console.error('Error saving submission:', error);
+        throw error;
+    }
 }
 
-// Function to clear all submissions (for admin use)
-function clearFormSubmissions() {
-    localStorage.removeItem('formSubmissions');
+// Function to get all form submissions from server (for admin)
+async function getFormSubmissions() {
+    try {
+        const response = await fetch(getApiPath('get-submissions.php'));
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch submissions');
+        }
+        
+        const submissions = await response.json();
+        return submissions || [];
+    } catch (error) {
+        console.error('Error fetching submissions:', error);
+        return [];
+    }
+}
+
+// Function to delete a submission (for admin)
+async function deleteSubmission(id) {
+    try {
+        const response = await fetch(getApiPath('delete-submission.php'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: id })
+        });
+        
+        const result = await response.json();
+        return result.success || false;
+    } catch (error) {
+        console.error('Error deleting submission:', error);
+        return false;
+    }
 }
 
 // Handle contact form submission
@@ -63,22 +92,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Save submission
-            const submission = saveFormSubmission(formData);
+            // Disable submit button
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
             
-            // Show success message
-            showFormMessage('Thank you! Your inquiry has been submitted successfully. We will contact you soon.', 'success');
-            
-            // Reset form
-            contactForm.reset();
-            
-            // Hide price alert if visible
-            const priceAlert = document.getElementById('priceAlert');
-            if (priceAlert) {
-                priceAlert.classList.add('d-none');
+            // Save submission to server
+            try {
+                await saveFormSubmission(formData);
+                
+                // Show success message
+                showFormMessage('Thank you! Your inquiry has been submitted successfully. We will contact you soon.', 'success');
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Hide price alert if visible
+                const priceAlert = document.getElementById('priceAlert');
+                if (priceAlert) {
+                    priceAlert.classList.add('d-none');
+                }
+            } catch (error) {
+                showFormMessage('Sorry, there was an error submitting your inquiry. Please try again or contact us directly.', 'danger');
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
             }
-            
-            console.log('Form submission saved:', submission);
         });
     }
     
@@ -96,9 +137,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Export to CSV/Excel function
-function exportToExcel() {
-    const submissions = getFormSubmissions();
+// Export to CSV/Excel function (for admin)
+async function exportToExcel() {
+    const submissions = await getFormSubmissions();
     
     if (submissions.length === 0) {
         alert('No form submissions to export.');
@@ -112,7 +153,7 @@ function exportToExcel() {
     submissions.forEach(sub => {
         const row = [
             sub.id,
-            `"${sub.date}"`,
+            `"${sub.date || ''}"`,
             `"${sub.fullName || ''}"`,
             `"${sub.phoneNumber || ''}"`,
             `"${sub.email || ''}"`,
@@ -139,8 +180,8 @@ function exportToExcel() {
     document.body.removeChild(link);
 }
 
-// Make export function globally available
+// Make functions globally available
 window.exportToExcel = exportToExcel;
 window.getFormSubmissions = getFormSubmissions;
-window.clearFormSubmissions = clearFormSubmissions;
+window.deleteSubmission = deleteSubmission;
 

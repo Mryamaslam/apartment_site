@@ -114,50 +114,62 @@
             loadFormSubmissions();
         });
 
-        function loadFormSubmissions() {
-            const submissions = getFormSubmissions();
+        async function loadFormSubmissions() {
             const tbody = document.getElementById('leadsTableBody');
 
-            // Clear existing rows
+            // Show loading
             if (tbody) {
-                tbody.innerHTML = '';
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">Loading submissions...</td></tr>';
+            }
 
-                if (submissions.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No form submissions yet.</td></tr>';
-                    return;
+            try {
+                const submissions = await getFormSubmissions();
+
+                // Clear existing rows
+                if (tbody) {
+                    tbody.innerHTML = '';
+
+                    if (submissions.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No form submissions yet.</td></tr>';
+                        return;
+                    }
+
+                    // Display submissions (already sorted by server)
+                    submissions.forEach(sub => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${sub.date || 'N/A'}</td>
+                            <td>${sub.fullName || 'N/A'}</td>
+                            <td><a href="tel:${sub.phoneNumber || ''}">${sub.phoneNumber || 'N/A'}</a></td>
+                            <td>${sub.email ? `<a href="mailto:${sub.email}">${sub.email}</a>` : 'N/A'}</td>
+                            <td>${sub.apartmentType || 'N/A'}</td>
+                            <td>${sub.userType || 'N/A'}</td>
+                            <td>${sub.message ? `<span title="${sub.message}">${sub.message.length > 30 ? sub.message.substring(0, 30) + '...' : sub.message}</span>` : 'N/A'}</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" onclick="deleteSubmissionHandler('${sub.id}')" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
                 }
-
-                // Sort by date (newest first)
-                submissions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
-                // Display submissions
-                submissions.forEach(sub => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${sub.date || 'N/A'}</td>
-                        <td>${sub.fullName || 'N/A'}</td>
-                        <td><a href="tel:${sub.phoneNumber || ''}">${sub.phoneNumber || 'N/A'}</a></td>
-                        <td>${sub.email ? `<a href="mailto:${sub.email}">${sub.email}</a>` : 'N/A'}</td>
-                        <td>${sub.apartmentType || 'N/A'}</td>
-                        <td>${sub.userType || 'N/A'}</td>
-                        <td>${sub.message ? `<span title="${sub.message}">${sub.message.length > 30 ? sub.message.substring(0, 30) + '...' : sub.message}</span>` : 'N/A'}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" onclick="deleteSubmission(${sub.id})" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
+            } catch (error) {
+                if (tbody) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger py-4">Error loading submissions. Please refresh.</td></tr>';
+                }
+                console.error('Error loading submissions:', error);
             }
         }
 
-        function deleteSubmission(id) {
+        async function deleteSubmissionHandler(id) {
             if (confirm('Are you sure you want to delete this submission?')) {
-                let submissions = getFormSubmissions();
-                submissions = submissions.filter(sub => sub.id !== id);
-                localStorage.setItem('formSubmissions', JSON.stringify(submissions));
-                loadFormSubmissions();
+                const success = await deleteSubmission(id);
+                if (success) {
+                    loadFormSubmissions(); // Reload the list
+                } else {
+                    alert('Error deleting submission. Please try again.');
+                }
             }
         }
 
@@ -168,7 +180,7 @@
 
         // Make functions globally available
         window.loadFormSubmissions = loadFormSubmissions;
-        window.deleteSubmission = deleteSubmission;
+        window.deleteSubmissionHandler = deleteSubmissionHandler;
         window.logoutAdmin = logoutAdmin;
     </script>
 </body>

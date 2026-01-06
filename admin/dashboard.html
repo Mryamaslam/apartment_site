@@ -199,13 +199,110 @@
             };
         }
 
+        // Session timeout configuration (30 minutes)
+        const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes in milliseconds
+        let activityCheckInterval = null;
+        let sessionWarningShown = false;
+
+        // Check if session is valid
+        function isSessionValid() {
+            const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            const sessionExpiry = localStorage.getItem('adminSessionExpiry');
+            const lastActivity = localStorage.getItem('adminLastActivity');
+            
+            if (!isLoggedIn || !sessionExpiry || !lastActivity) {
+                return false;
+            }
+            
+            const now = Date.now();
+            const expiry = parseInt(sessionExpiry);
+            const lastActive = parseInt(lastActivity);
+            
+            // Check if session expired
+            if (now >= expiry) {
+                return false;
+            }
+            
+            // Check if user has been inactive for too long
+            if (now - lastActive > SESSION_TIMEOUT) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Update last activity timestamp
+        function updateActivity() {
+            localStorage.setItem('adminLastActivity', Date.now().toString());
+            
+            // Extend session expiration on activity
+            const newExpiry = Date.now() + SESSION_TIMEOUT;
+            localStorage.setItem('adminSessionExpiry', newExpiry.toString());
+            sessionWarningShown = false; // Reset warning if user becomes active
+        }
+
+        // Logout function
+        function forceLogout(reason) {
+            localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('adminSessionExpiry');
+            localStorage.removeItem('adminLastActivity');
+            
+            if (activityCheckInterval) {
+                clearInterval(activityCheckInterval);
+            }
+            
+            if (reason) {
+                alert(reason);
+            }
+            
+            window.location.href = 'login.html';
+        }
+
+        // Check session periodically
+        function startSessionMonitoring() {
+            // Check every minute
+            activityCheckInterval = setInterval(function() {
+                if (!isSessionValid()) {
+                    forceLogout('Your session has expired due to inactivity. Please login again.');
+                } else {
+                    // Show warning 5 minutes before expiry
+                    const sessionExpiry = parseInt(localStorage.getItem('adminSessionExpiry'));
+                    const timeUntilExpiry = sessionExpiry - Date.now();
+                    const warningTime = 5 * 60 * 1000; // 5 minutes
+                    
+                    if (timeUntilExpiry <= warningTime && !sessionWarningShown) {
+                        sessionWarningShown = true;
+                        const minutesLeft = Math.ceil(timeUntilExpiry / 60000);
+                        if (confirm(`Your session will expire in ${minutesLeft} minute(s). Click OK to extend your session.`)) {
+                            updateActivity();
+                        }
+                    }
+                }
+            }, 60000); // Check every minute
+        }
+
+        // Track user activity
+        function setupActivityTracking() {
+            const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+            events.forEach(event => {
+                document.addEventListener(event, updateActivity, true);
+            });
+        }
+
         // Simple front-end protection: require login flag in localStorage
         document.addEventListener('DOMContentLoaded', function() {
-            const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
-            if (!isLoggedIn) {
-                window.location.href = 'login.html';
+            // Check session validity
+            if (!isSessionValid()) {
+                forceLogout('Your session has expired. Please login again.');
                 return;
             }
+            
+            // Initialize activity tracking
+            updateActivity(); // Set initial activity
+            setupActivityTracking();
+            startSessionMonitoring();
+            
+            // Load form submissions
             loadFormSubmissions();
         });
 
@@ -274,7 +371,12 @@
         }
 
         function logoutAdmin() {
+            if (activityCheckInterval) {
+                clearInterval(activityCheckInterval);
+            }
             localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('adminSessionExpiry');
+            localStorage.removeItem('adminLastActivity');
             window.location.href = 'login.html';
         }
 

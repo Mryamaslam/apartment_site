@@ -93,10 +93,24 @@
             const form = document.getElementById('adminLoginForm');
             const alertBox = document.getElementById('loginAlert');
 
-            // If already logged in, go straight to dashboard
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
-                window.location.href = 'dashboard.html';
-                return;
+            // Check if session is still valid
+            const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            const sessionExpiry = localStorage.getItem('adminSessionExpiry');
+            
+            if (isLoggedIn && sessionExpiry) {
+                const now = Date.now();
+                const expiry = parseInt(sessionExpiry);
+                
+                // If session hasn't expired, go to dashboard
+                if (now < expiry) {
+                    window.location.href = 'dashboard.html';
+                    return;
+                } else {
+                    // Session expired, clear it
+                    localStorage.removeItem('adminLoggedIn');
+                    localStorage.removeItem('adminSessionExpiry');
+                    localStorage.removeItem('adminLastActivity');
+                }
             }
 
             form.addEventListener('submit', function (e) {
@@ -105,7 +119,14 @@
                 const password = document.getElementById('adminPassword').value.trim();
 
                 if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                    // Set login flag and session expiration (30 minutes from now)
+                    const sessionTimeout = 30 * 60 * 1000; // 30 minutes in milliseconds
+                    const expirationTime = Date.now() + sessionTimeout;
+                    
                     localStorage.setItem('adminLoggedIn', 'true');
+                    localStorage.setItem('adminSessionExpiry', expirationTime.toString());
+                    localStorage.setItem('adminLastActivity', Date.now().toString());
+                    
                     window.location.href = 'dashboard.html';
                 } else {
                     alertBox.textContent = 'Invalid username or password.';

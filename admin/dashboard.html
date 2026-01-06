@@ -104,6 +104,101 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/form-handler.js"></script>
     <script>
+        // Get base path for API calls (fallback if form-handler.js doesn't load)
+        function getApiPath(endpoint) {
+            const isAdmin = window.location.pathname.includes('/admin/');
+            return isAdmin ? `../api/${endpoint}` : `api/${endpoint}`;
+        }
+
+        // Fallback function if form-handler.js doesn't load
+        if (typeof window.getFormSubmissions === 'undefined') {
+            window.getFormSubmissions = async function() {
+                try {
+                    const apiPath = getApiPath('get-submissions.php');
+                    console.log('Fetching from:', apiPath);
+                    
+                    const response = await fetch(apiPath);
+                    
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('API Error:', response.status, errorText);
+                        throw new Error(`Failed to fetch submissions: ${response.status}`);
+                    }
+                    
+                    const submissions = await response.json();
+                    console.log('Received submissions:', submissions);
+                    return Array.isArray(submissions) ? submissions : [];
+                } catch (error) {
+                    console.error('Error fetching submissions:', error);
+                    return [];
+                }
+            };
+        }
+
+        if (typeof window.deleteSubmission === 'undefined') {
+            window.deleteSubmission = async function(id) {
+                try {
+                    const response = await fetch(getApiPath('delete-submission.php'), {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ id: id })
+                    });
+                    
+                    const result = await response.json();
+                    return result.success || false;
+                } catch (error) {
+                    console.error('Error deleting submission:', error);
+                    return false;
+                }
+            };
+        }
+
+        if (typeof window.exportToExcel === 'undefined') {
+            window.exportToExcel = async function() {
+                const submissions = await window.getFormSubmissions();
+                
+                if (submissions.length === 0) {
+                    alert('No form submissions to export.');
+                    return;
+                }
+                
+                // Create CSV content
+                const headers = ['ID', 'Date & Time', 'Full Name', 'Phone Number', 'Email', 'Apartment Type', 'User Type', 'Message'];
+                const csvRows = [headers.join(',')];
+                
+                submissions.forEach(sub => {
+                    const row = [
+                        sub.id,
+                        `"${sub.date || ''}"`,
+                        `"${sub.fullName || ''}"`,
+                        `"${sub.phoneNumber || ''}"`,
+                        `"${sub.email || ''}"`,
+                        `"${sub.apartmentType || ''}"`,
+                        `"${sub.userType || ''}"`,
+                        `"${(sub.message || '').replace(/"/g, '""')}"`
+                    ];
+                    csvRows.push(row.join(','));
+                });
+                
+                const csvContent = csvRows.join('\n');
+                
+                // Create blob and download
+                const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                
+                link.setAttribute('href', url);
+                link.setAttribute('download', `form_submissions_${new Date().toISOString().split('T')[0]}.csv`);
+                link.style.visibility = 'hidden';
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+        }
+
         // Simple front-end protection: require login flag in localStorage
         document.addEventListener('DOMContentLoaded', function() {
             const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
@@ -123,7 +218,7 @@
             }
 
             try {
-                const submissions = await getFormSubmissions();
+                const submissions = await window.getFormSubmissions();
                 console.log('Submissions loaded:', submissions);
 
                 // Clear existing rows
@@ -169,7 +264,7 @@
 
         async function deleteSubmissionHandler(id) {
             if (confirm('Are you sure you want to delete this submission?')) {
-                const success = await deleteSubmission(id);
+                const success = await window.deleteSubmission(id);
                 if (success) {
                     loadFormSubmissions(); // Reload the list
                 } else {

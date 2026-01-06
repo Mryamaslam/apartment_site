@@ -10,7 +10,11 @@ function getApiPath(endpoint) {
 // Function to save form submission to server
 async function saveFormSubmission(formData) {
     try {
-        const response = await fetch(getApiPath('save-submission.php'), {
+        const apiPath = getApiPath('save-submission.php');
+        console.log('Saving submission to:', apiPath);
+        console.log('Form data:', formData);
+        
+        const response = await fetch(apiPath, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +22,14 @@ async function saveFormSubmission(formData) {
             body: JSON.stringify(formData)
         });
         
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('API Error Response:', response.status, errorText);
+            throw new Error(`Server error: ${response.status} - ${errorText}`);
+        }
+        
         const result = await response.json();
+        console.log('Save response:', result);
         
         if (result.success) {
             return result;
@@ -80,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const formMessage = document.getElementById('formMessage');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Get form data
@@ -121,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     priceAlert.classList.add('d-none');
                 }
             } catch (error) {
+                console.error('Form submission error:', error);
                 showFormMessage('Sorry, there was an error submitting your inquiry. Please try again or contact us directly.', 'danger');
             } finally {
                 // Re-enable submit button

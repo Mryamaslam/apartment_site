@@ -1,9 +1,0 @@
-# Allow all methods for PHP files
-<FilesMatch "\.php$">
-    <IfModule mod_headers.c>
-        Header set Access-Control-Allow-Origin "*"
-        Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
-        Header set Access-Control-Allow-Headers "Content-Type, Authorization"
-    </IfModule>
-</FilesMatch>
-

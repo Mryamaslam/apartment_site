@@ -1,75 +1,100 @@
 // Form Handler for Contact Form Submissions
-// Saves form data to server via PHP API
+// Uses Supabase as the backend (no PHP required)
 
-// Get base path for API calls
-function getApiPath(endpoint) {
-    const isAdmin = window.location.pathname.includes('/admin/');
-    return isAdmin ? `../api/${endpoint}` : `api/${endpoint}`;
+// Ensure Supabase client is available
+function getSupabaseClient() {
+    if (!window.supabaseClient) {
+        throw new Error('Supabase client is not configured. Please set SUPABASE_URL and SUPABASE_ANON_KEY in js/supabase-client.js');
+    }
+    return window.supabaseClient;
 }
 
-// Function to save form submission to server
+// Table name in Supabase
+const SUPABASE_TABLE = 'form_submissions';
+
+// Function to save form submission to Supabase
 async function saveFormSubmission(formData) {
-    const apiPath = getApiPath('save-submission.php');
-    console.log('Saving submission to:', apiPath);
-    console.log('Form data:', formData);
-    
-    const response = await fetch(apiPath, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-    });
-    
-    if (!response.ok) {
-        const errorText = await response.text();
-        console.error('API Error Response:', response.status, errorText);
-        throw new Error(`Server error: ${response.status} - ${errorText}`);
+    const supabase = getSupabaseClient();
+    console.log('Saving submission to Supabase:', formData);
+
+    const { data, error } = await supabase
+        .from(SUPABASE_TABLE)
+        .insert([
+            {
+                full_name: formData.fullName,
+                phone_number: formData.phoneNumber,
+                email: formData.email || null,
+                apartment_type: formData.apartmentType || null,
+                user_type: formData.userType || null,
+                message: formData.message || null,
+            }
+        ])
+        .select()
+        .single();
+
+    if (error) {
+        console.error('Supabase insert error:', error);
+        throw new Error('Failed to save submission. Please try again later.');
     }
-    
-    const result = await response.json();
-    console.log('Save response:', result);
-    
-    if (result.success) {
-        return result;
-    } else {
-        throw new Error(result.message || 'Failed to save submission');
-    }
+
+    console.log('Supabase insert result:', data);
+    return { success: true, data };
 }
 
-// Function to get all form submissions from server (for admin)
+// Function to get all form submissions from Supabase (for admin)
 async function getFormSubmissions() {
-    const apiPath = getApiPath('get-submissions.php');
-    console.log('Fetching from:', apiPath);
-    
-    const response = await fetch(apiPath);
-    
-    if (!response.ok) {
-        const errorText = await response.text();
-        console.error('API Error:', response.status, errorText);
-        throw new Error(`Failed to fetch submissions: ${response.status}`);
+    const supabase = getSupabaseClient();
+    console.log('Fetching submissions from Supabase...');
+
+    const { data, error } = await supabase
+        .from(SUPABASE_TABLE)
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error('Supabase select error:', error);
+        throw new Error('Failed to fetch submissions.');
     }
-    
-    const submissions = await response.json();
-    console.log('Received submissions:', submissions);
-    return Array.isArray(submissions) ? submissions : [];
+
+    console.log('Received submissions from Supabase:', data);
+
+    // Map Supabase fields to the structure used by the dashboard
+    return (data || []).map(row => ({
+        id: row.id,
+        date: row.created_at ? new Date(row.created_at).toLocaleString('en-US', {
+            month: 'short',
+            day: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+        }) : '',
+        fullName: row.full_name || '',
+        phoneNumber: row.phone_number || '',
+        email: row.email || '',
+        apartmentType: row.apartment_type || '',
+        userType: row.user_type || '',
+        message: row.message || '',
+    }));
 }
 
-// Function to delete a submission (for admin)
+// Function to delete a submission from Supabase (for admin)
 async function deleteSubmission(id) {
+    const supabase = getSupabaseClient();
     try {
-        const response = await fetch(getApiPath('delete-submission.php'), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id: id })
-        });
-        
-        const result = await response.json();
-        return result.success || false;
+        const { error } = await supabase
+            .from(SUPABASE_TABLE)
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            console.error('Supabase delete error:', error);
+            return false;
+        }
+
+        return true;
     } catch (error) {
-        console.error('Error deleting submission:', error);
+        console.error('Error deleting submission from Supabase:', error);
         return false;
     }
 }

@@ -1,8 +1,0 @@
-# Protect submissions.json from direct access
-<Files "submissions.json">
-    Order Allow,Deny
-    Deny from all
-</Files>
-
-# Allow directory listing (optional, remove if you don't want it)
-Options -Indexes

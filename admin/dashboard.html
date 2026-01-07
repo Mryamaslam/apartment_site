@@ -66,9 +66,6 @@
                     <div class="card-header bg-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Recent Leads</h5>
                         <div>
-                            <button class="btn btn-sm btn-warning me-2" onclick="syncPendingSubmissions()" title="Sync any pending submissions from localStorage">
-                                <i class="fas fa-cloud-upload-alt me-1"></i> Sync Pending
-                            </button>
                             <button class="btn btn-sm btn-success me-2" onclick="exportToExcel()">
                                 <i class="fas fa-file-excel me-1"></i> Export to Excel
                             </button>
@@ -305,25 +302,8 @@
             setupActivityTracking();
             startSessionMonitoring();
             
-            // Sync any pending submissions first, then load
-            if (typeof window.syncLocalStorageSubmissions === 'function') {
-                window.syncLocalStorageSubmissions().then(() => {
-                    loadFormSubmissions();
-                }).catch(() => {
-                    loadFormSubmissions();
-                });
-            } else {
-                loadFormSubmissions();
-            }
-            
-            // Auto-sync every 5 minutes
-            setInterval(() => {
-                if (typeof window.syncLocalStorageSubmissions === 'function') {
-                    window.syncLocalStorageSubmissions().catch(err => {
-                        console.log('Auto-sync failed:', err);
-                    });
-                }
-            }, 5 * 60 * 1000); // Every 5 minutes
+            // Load submissions directly from server
+            loadFormSubmissions();
         });
 
         async function loadFormSubmissions() {
@@ -400,41 +380,10 @@
             window.location.href = 'login.html';
         }
 
-        // Function to sync pending submissions from localStorage
-        async function syncPendingSubmissions() {
-            const syncBtn = event.target.closest('button');
-            const originalText = syncBtn.innerHTML;
-            syncBtn.disabled = true;
-            syncBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Syncing...';
-            
-            try {
-                if (typeof window.syncLocalStorageSubmissions === 'function') {
-                    const result = await window.syncLocalStorageSubmissions();
-                    if (result.synced > 0) {
-                        alert(`Successfully synced ${result.synced} submission(s) to server!`);
-                        loadFormSubmissions(); // Reload the list
-                    } else if (result.failed > 0) {
-                        alert(`Sync completed with ${result.failed} failure(s). Please check server connection.`);
-                    } else {
-                        alert('No pending submissions to sync.');
-                    }
-                } else {
-                    alert('Sync function not available. Please refresh the page.');
-                }
-            } catch (error) {
-                console.error('Error syncing:', error);
-                alert('Error syncing submissions. Please check browser console for details.');
-            } finally {
-                syncBtn.disabled = false;
-                syncBtn.innerHTML = originalText;
-            }
-        }
-
         // Make functions globally available
         window.loadFormSubmissions = loadFormSubmissions;
         window.deleteSubmissionHandler = deleteSubmissionHandler;
         window.logoutAdmin = logoutAdmin;
-        window.syncPendingSubmissions = syncPendingSubmissions;
     </script>
 </body>
 </html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Development Progress - City Scape Heights | Construction Updates</title>
+    <meta name="title" content="Development Progress - City Scape Heights | Construction Updates">
+    <meta name="description" content="Track the latest construction progress and development updates at City Scape Heights luxury apartments in Lahore.">
+    <meta name="keywords" content="City Scape Heights Development, Construction Progress, Building Updates, Lahore Apartments Progress">
+    <meta name="author" content="City Scape Heights">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cityscapeheights.com/development.html">
+    <meta property="og:title" content="Development Progress - City Scape Heights | Construction Updates">
+    <meta property="og:description" content="Track the latest construction progress and development updates at City Scape Heights.">
+    <meta property="og:image" content="https://cityscapeheights.com/assets/images/logo-cityscape-fixed.png">
+    <meta property="og:site_name" content="City Scape Heights">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://cityscapeheights.com/development.html">
+    <meta property="twitter:title" content="Development Progress - City Scape Heights | Construction Updates">
+    <meta property="twitter:description" content="Track the latest construction progress and development updates at City Scape Heights.">
+    <meta property="twitter:image" content="https://cityscapeheights.com/assets/images/logo-cityscape-fixed.png">
+    
+    <!-- Favicon / Logo for browser & Google -->
+    <link rel="icon" type="image/png" href="assets/images/logo-cityscape-fixed.png">
+    <link rel="apple-touch-icon" href="assets/images/logo-cityscape-fixed.png">
+    <link rel="shortcut icon" href="assets/images/logo-cityscape-fixed.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://cityscapeheights.com/development.html">
+    
+    <!-- Preconnect for CDN resources -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .development-header {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
+            color: white;
+            padding: 80px 0 50px;
+            text-align: center;
+        }
+        .development-section {
+            padding: 60px 0;
+        }
+        .development-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary-red);
+        }
+        .development-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .development-card-header {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px 25px;
+            border-bottom: 2px solid var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .development-folder-icon {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-right: 15px;
+        }
+        .development-title {
+            flex: 1;
+            min-width: 200px;
+        }
+        .development-title h3 {
+            color: var(--primary-red);
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .development-date {
+            background: var(--primary-red);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .development-content {
+            padding: 25px;
+        }
+        .development-video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .development-video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .development-video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .development-video-placeholder i {
+            font-size: 4rem;
+        }
+        .development-video-placeholder span {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .development-description {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        .development-category-badge {
+            display: inline-block;
+            background: var(--primary-gold);
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .timeline-connector {
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary-red), var(--primary-gold));
+            margin: 0 auto;
+            min-height: 50px;
+        }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+            justify-content: center;
+        }
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid var(--primary-red);
+            background: white;
+            color: var(--primary-red);
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-red);
+            color: white;
+        }
+        .section-divider {
+            text-align: center;
+            margin: 60px 0;
+            position: relative;
+        }
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary-gold), transparent);
+        }
+        .section-divider h2 {
+            background: white;
+            padding: 0 30px;
+            position: relative;
+            color: var(--primary-red);
+            font-weight: 700;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <!-- Left Logo -->
+            <a class="navbar-brand" href="index.html">
+                <img loading="lazy" src="assets/images/logo-cityscape-fixed.png" alt="Cityscape Logo" class="d-lg-none me-2" style="height: 60px; filter: invert(1);">
+                <img loading="lazy" src="assets/images/logo-falletes.png" alt="Fallete's Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                <span style="display:none; font-weight:bold; color:var(--primary-red);">FALLETE'S</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="apartments.html">Apartments</a></li>
+                    <li class="nav-item"><a class="nav-link" href="amenities.html">Amenities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="location.html">Location</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="development.html">Development</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="d-flex align-items-center d-none d-lg-flex">
+                <!-- Right Logo (Developer) -->
+                <a class="navbar-brand ms-2" href="#">
+                    <img loading="lazy" src="assets/images/logo-cityscape-fixed.png" alt="Cityscape Logo" style="filter: invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                     <span style="display:none; font-size:0.8rem; color:var(--text-dark);">Cityscape</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="development-header">
+        <div class="container">
+            <h1 class="display-4 mb-3"><i class="fas fa-hard-hat me-3"></i>Development Progress</h1>
+            <p class="lead">Track the Latest Construction Updates & Milestones</p>
+        </div>
+    </header>
+
+    <!-- Development Section -->
+    <section class="development-section">
+        <div class="container">
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterDevelopments('all')">All Updates</button>
+                <button class="filter-btn" onclick="filterDevelopments('concrete')">Concrete Work</button>
+                <button class="filter-btn" onclick="filterDevelopments('flooring')">Flooring</button>
+                <button class="filter-btn" onclick="filterDevelopments('structure')">Structure</button>
+                <button class="filter-btn" onclick="filterDevelopments('electrical')">Electrical</button>
+                <button class="filter-btn" onclick="filterDevelopments('plumbing')">Plumbing</button>
+            </div>
+
+            <!-- Latest Development (Concrete Boring) -->
+            <div class="development-card development-item" data-category="concrete">
+                <div class="development-card-header">
+                    <div class="development-title">
+                        <i class="fas fa-folder development-folder-icon"></i>
+                        <h3>Concrete Boring</h3>
+                    </div>
+                    <div class="development-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>January 20, 2025</span>
+                    </div>
+                </div>
+                <div class="development-content">
+                    <span class="development-category-badge">Concrete Work</span>
+                    <div class="development-video-container">
+                        <div class="development-video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Development Video</span>
+                            <small style="font-size: 0.9rem; opacity: 0.9;">25 seconds</small>
+                        </div>
+                        <!-- Replace with actual video when available -->
+                        <!-- <video controls>
+                            <source src="assets/videos/concrete-boring.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> -->
+                    </div>
+                    <div class="development-description">
+                        <p><strong>Latest Update:</strong> Concrete boring work has been completed successfully. The foundation work is progressing well with all safety standards being maintained. The construction team is working diligently to ensure quality and timely completion.</p>
+                        <p><strong>Progress:</strong> Foundation concrete boring completed. Next phase includes structural framework installation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-connector"></div>
+
+            <!-- 1st Floor Concrete -->
+            <div class="development-card development-item" data-category="concrete">
+                <div class="development-card-header">
+                    <div class="development-title">
+                        <i class="fas fa-folder development-folder-icon"></i>
+                        <h3>1st Floor Concrete</h3>
+                    </div>
+                    <div class="development-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>January 15, 2025</span>
+                    </div>
+                </div>
+                <div class="development-content">
+                    <span class="development-category-badge">Concrete Work</span>
+                    <div class="development-video-container">
+                        <div class="development-video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Development Video</span>
+                            <small style="font-size: 0.9rem; opacity: 0.9;">25 seconds</small>
+                        </div>
+                        <!-- Replace with actual video when available -->
+                        <!-- <video controls>
+                            <source src="assets/videos/1st-floor-concrete.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> -->
+                    </div>
+                    <div class="development-description">
+                        <p><strong>Update:</strong> First floor concrete work has been completed. The slab has been poured and is currently curing. Quality checks have been performed to ensure structural integrity.</p>
+                        <p><strong>Progress:</strong> First floor slab completed. Ready for next phase of construction.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-connector"></div>
+
+            <!-- Ground Floor Structure -->
+            <div class="development-card development-item" data-category="structure">
+                <div class="development-card-header">
+                    <div class="development-title">
+                        <i class="fas fa-folder development-folder-icon"></i>
+                        <h3>Ground Floor Structure</h3>
+                    </div>
+                    <div class="development-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>January 10, 2025</span>
+                    </div>
+                </div>
+                <div class="development-content">
+                    <span class="development-category-badge">Structure</span>
+                    <div class="development-video-container">
+                        <div class="development-video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Development Video</span>
+                            <small style="font-size: 0.9rem; opacity: 0.9;">25 seconds</small>
+                        </div>
+                        <!-- Replace with actual video when available -->
+                        <!-- <video controls>
+                            <source src="assets/videos/ground-floor-structure.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> -->
+                    </div>
+                    <div class="development-description">
+                        <p><strong>Update:</strong> Ground floor structural framework has been completed. All columns and beams are in place and have passed quality inspections. The structure is ready for further development.</p>
+                        <p><strong>Progress:</strong> Ground floor structure completed. Foundation and initial framework established.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-connector"></div>
+
+            <!-- Foundation Work -->
+            <div class="development-card development-item" data-category="structure">
+                <div class="development-card-header">
+                    <div class="development-title">
+                        <i class="fas fa-folder development-folder-icon"></i>
+                        <h3>Foundation Work</h3>
+                    </div>
+                    <div class="development-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>January 5, 2025</span>
+                    </div>
+                </div>
+                <div class="development-content">
+                    <span class="development-category-badge">Structure</span>
+                    <div class="development-video-container">
+                        <div class="development-video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Development Video</span>
+                            <small style="font-size: 0.9rem; opacity: 0.9;">25 seconds</small>
+                        </div>
+                        <!-- Replace with actual video when available -->
+                        <!-- <video controls>
+                            <source src="assets/videos/foundation-work.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> -->
+                    </div>
+                    <div class="development-description">
+                        <p><strong>Update:</strong> Foundation excavation and preparation work has been completed. All foundation elements have been properly installed according to engineering specifications.</p>
+                        <p><strong>Progress:</strong> Foundation work completed. Building base established successfully.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-connector"></div>
+
+            <!-- Electrical Installation -->
+            <div class="development-card development-item" data-category="electrical">
+                <div class="development-card-header">
+                    <div class="development-title">
+                        <i class="fas fa-folder development-folder-icon"></i>
+                        <h3>Electrical Installation</h3>
+                    </div>
+                    <div class="development-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>December 28, 2024</span>
+                    </div>
+                </div>
+                <div class="development-content">
+                    <span class="development-category-badge">Electrical</span>
+                    <div class="development-video-container">
+                        <div class="development-video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Development Video</span>
+                            <small style="font-size: 0.9rem; opacity: 0.9;">25 seconds</small>
+                        </div>
+                        <!-- Replace with actual video when available -->
+                        <!-- <video controls>
+                            <source src="assets/videos/electrical-installation.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> -->
+                    </div>
+                    <div class="development-description">
+                        <p><strong>Update:</strong> Electrical wiring and installation work is in progress. All electrical conduits are being installed according to the approved electrical plan. Safety standards are being strictly followed.</p>
+                        <p><strong>Progress:</strong> Electrical installation ongoing. Conduits and wiring in progress.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-connector"></div>
+
+            <!-- Plumbing Work -->
+            <div class="development-card development-item" data-category="plumbing">
+                <div class="development-card-header">
+                    <div class="development-title">
+                        <i class="fas fa-folder development-folder-icon"></i>
+                        <h3>Plumbing Installation</h3>
+                    </div>
+                    <div class="development-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>December 20, 2024</span>
+                    </div>
+                </div>
+                <div class="development-content">
+                    <span class="development-category-badge">Plumbing</span>
+                    <div class="development-video-container">
+                        <div class="development-video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Development Video</span>
+                            <small style="font-size: 0.9rem; opacity: 0.9;">25 seconds</small>
+                        </div>
+                        <!-- Replace with actual video when available -->
+                        <!-- <video controls>
+                            <source src="assets/videos/plumbing-installation.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> -->
+                    </div>
+                    <div class="development-description">
+                        <p><strong>Update:</strong> Plumbing installation work has commenced. All water supply and drainage systems are being installed as per the approved plumbing layout. Quality materials are being used throughout.</p>
+                        <p><strong>Progress:</strong> Plumbing installation in progress. Water and drainage systems being installed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-connector"></div>
+
+            <!-- Flooring Work -->
+            <div class="development-card development-item" data-category="flooring">
+                <div class="development-card-header">
+                    <div class="development-title">
+                        <i class="fas fa-folder development-folder-icon"></i>
+                        <h3>Flooring Installation</h3>
+                    </div>
+                    <div class="development-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>December 15, 2024</span>
+                    </div>
+                </div>
+                <div class="development-content">
+                    <span class="development-category-badge">Flooring</span>
+                    <div class="development-video-container">
+                        <div class="development-video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Development Video</span>
+                            <small style="font-size: 0.9rem; opacity: 0.9;">25 seconds</small>
+                        </div>
+                        <!-- Replace with actual video when available -->
+                        <!-- <video controls>
+                            <source src="assets/videos/flooring-installation.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> -->
+                    </div>
+                    <div class="development-description">
+                        <p><strong>Update:</strong> Flooring work has begun in selected areas. High-quality flooring materials are being installed to ensure durability and aesthetic appeal. The work is progressing smoothly.</p>
+                        <p><strong>Progress:</strong> Flooring installation ongoing. Premium materials being used.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h4 class="text-warning mb-3">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="apartments.html" class="text-white text-decoration-none">Apartments</a></li>
+                        <li class="mb-2"><a href="amenities.html" class="text-white text-decoration-none">Amenities</a></li>
+                        <li class="mb-2"><a href="location.html" class="text-white text-decoration-none">Location</a></li>
+                        <li class="mb-2"><a href="gallery.html" class="text-white text-decoration-none">Gallery</a></li>
+                        <li class="mb-2"><a href="reviews.html" class="text-white text-decoration-none">Reviews</a></li>
+                        <li class="mb-2"><a href="faq.html" class="text-white text-decoration-none">FAQ</a></li>
+                        <li class="mb-2"><a href="blog.html" class="text-white text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="development.html" class="text-white text-decoration-none">Development</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-6">
+                    <h4 class="text-warning mb-3">Contact Us</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2 d-flex align-items-start">
+                            <i class="fas fa-map-marker-alt text-warning mt-1 me-2 flex-shrink-0" style="width: 20px;"></i>
+                            <span><strong>Site Location:</strong> Apartment site Lahore villas 11km Raiwind Road Near Adda Plot Lahore</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-start">
+                            <i class="fas fa-building text-warning mt-1 me-2 flex-shrink-0" style="width: 20px;"></i>
+                            <span><strong>Head Office:</strong> MUN O SALVA Associates 42 A Iqbal Block Commercial sector E Bahria Town Lahore</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-phone text-warning me-2 flex-shrink-0" style="width: 20px;"></i>
+                            <a href="tel:+923004485455" class="text-white text-decoration-none">+92 300 4485455</a>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-envelope text-warning me-2 flex-shrink-0" style="width: 20px;"></i>
+                            <a href="mailto:info@falletes.com" class="text-white text-decoration-none">info@falletes.com</a>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="fab fa-facebook-f text-warning me-2 flex-shrink-0" style="width: 20px;"></i>
+                            <a href="https://www.facebook.com/p/City-Scape-Heights-61560563482822/" target="_blank" class="text-white text-decoration-none">Fallete's Service Apartments</a>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="fab fa-instagram text-warning me-2 flex-shrink-0" style="width: 20px;"></i>
+                            <a href="https://www.instagram.com/cityscape_heights_/" target="_blank" class="text-white text-decoration-none">cityscape_heights_</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row mt-4 pt-3 border-top border-secondary">
+                <div class="col-12 text-center text-white-50">
+                    <p class="mb-0">&copy; 2025 Fallete's Service Apartments. Developed by MUN O SALVA & Motisam Sons Associates.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script>
+        // Filter Development Updates
+        function filterDevelopments(category) {
+            const items = document.querySelectorAll('.development-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter items
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Video placeholder click handler (for when videos are added)
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoPlaceholders = document.querySelectorAll('.development-video-placeholder');
+            videoPlaceholders.forEach(placeholder => {
+                placeholder.addEventListener('click', function() {
+                    // When actual videos are added, this will play the video
+                    const video = this.parentElement.querySelector('video');
+                    if (video) {
+                        video.play();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

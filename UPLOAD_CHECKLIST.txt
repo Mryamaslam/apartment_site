@@ -1,0 +1,36 @@
+═══════════════════════════════════════════════════════════════
+   HOSTINGER UPLOAD CHECKLIST - EXACT FILES TO UPLOAD
+═══════════════════════════════════════════════════════════════
+
+✅ FOLDER 1: api/ (4 files)
+   📁 api/save-submission.php
+   📁 api/get-submissions.php
+   📁 api/delete-submission.php
+   📁 api/test.php
+
+✅ FOLDER 2: data/ (2 files)
+   📁 data/.htaccess
+   📁 data/submissions.json
+
+✅ UPDATE THESE FILES:
+   📄 admin/dashboard.html (replace old one)
+   📄 admin/login.html (replace old one)
+   📄 js/form-handler.js (replace old one)
+   📄 index.html (replace old one - if you updated it)
+   📄 contact.html (replace old one - if you updated it)
+
+═══════════════════════════════════════════════════════════════
+   SIMPLE STEPS (3 MINUTES)
+═══════════════════════════════════════════════════════════════
+
+1. Hostinger.com par login karein
+2. File Manager open karein
+3. public_html folder mein jayein
+4. Upload button par click karein
+5. Files select karein aur upload karein
+6. data/ folder ki permissions 755 set karein
+
+DONE! ✅
+
+═══════════════════════════════════════════════════════════════
+

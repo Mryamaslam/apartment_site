@@ -35,12 +35,14 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://cityscapeheights.com/">
     
+    <!-- Preconnect for CDN resources -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     
@@ -848,76 +850,14 @@
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Supabase JS (CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- Supabase JS (CDN) - Only loaded on pages with forms -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
     <!-- Custom JS -->
-    <script src="js/script.js"></script>
-    <script src="js/supabase-client.js?v=1.0"></script>
-    <script src="js/form-handler.js?v=2.0"></script>
-    <script>
-        // Simple script to show price estimation
-        const apartmentSelect = document.getElementById('apartmentSelect');
-        const priceAlert = document.getElementById('priceAlert');
-        const priceValue = document.getElementById('priceValue');
-
-        if(apartmentSelect) {
-            apartmentSelect.addEventListener('change', function() {
-                const val = this.value;
-                let price = "";
-                if(val === 'Studio') price = "PKR 775,000 (Booking)";
-                else if(val === '1Bed') price = "Call for Price";
-                else if(val === '2Bed') price = "Call for Price";
-                else if(val === '3Bed') price = "Call for Price";
-                
-                if(price) {
-                    priceValue.textContent = price;
-                    priceAlert.classList.remove('d-none');
-                }
-            });
-        }
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hero Video Logic
-            const leftVideo = document.getElementById('hero-video-left');
-            const rightVideo = document.getElementById('hero-video-right');
-
-            // Video Playlists
-            const leftPlaylist = ['assets/images/ved_1.mp4', 'assets/images/ved_02.mp4'];
-            const rightPlaylist = ['assets/images/ved_03.mp4', 'assets/images/ved_04.mp4'];
-
-            let leftIndex = 0;
-            let rightIndex = 0;
-
-            function playNextVideo(videoElement, playlist, currentIndex) {
-                const nextIndex = (currentIndex + 1) % playlist.length;
-                videoElement.src = playlist[nextIndex];
-                videoElement.play().catch(e => console.log("Auto-play prevented:", e));
-                return nextIndex;
-            }
-
-            // Initialize Left Video
-            if (leftVideo) {
-                leftVideo.src = leftPlaylist[0];
-                leftVideo.play().catch(e => console.log("Auto-play prevented:", e));
-                
-                leftVideo.onended = function() {
-                    leftIndex = playNextVideo(leftVideo, leftPlaylist, leftIndex);
-                };
-            }
-
-            // Initialize Right Video
-            if (rightVideo) {
-                rightVideo.src = rightPlaylist[0];
-                rightVideo.play().catch(e => console.log("Auto-play prevented:", e));
-                
-                rightVideo.onended = function() {
-                    rightIndex = playNextVideo(rightVideo, rightPlaylist, rightIndex);
-                };
-            }
-        });
-    </script>
+    <script src="js/supabase-client.js?v=1.0" defer></script>
+    <script src="js/form-handler.js?v=2.0" defer></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/index-scripts.js" defer></script>
 </body>
 </html>
 

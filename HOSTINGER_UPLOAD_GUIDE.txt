@@ -1,0 +1,62 @@
+═══════════════════════════════════════════════════════════════
+   HOSTINGER PAR FILES UPLOAD KARNE KA SIMPLE GUIDE
+═══════════════════════════════════════════════════════════════
+
+STEP 1: HOSTINGER LOGIN
+───────────────────────────────────────────────────────────────
+1. Browser mein jayein: https://hpanel.hostinger.com
+2. Apna email aur password se login karein
+
+STEP 2: FILE MANAGER KHOLEN
+───────────────────────────────────────────────────────────────
+1. Dashboard se "Hosting" par click karein
+2. "File Manager" button par click karein
+3. "public_html" folder open karein (yeh aapka website root hai)
+
+STEP 3: FILES UPLOAD KAREIN (3 SIMPLE STEPS)
+───────────────────────────────────────────────────────────────
+
+A) API FOLDER UPLOAD:
+   1. File Manager mein "Upload" button par click karein
+   2. "Select Files" par click karein
+   3. Apne computer se ye files select karein:
+      - api/save-submission.php
+      - api/get-submissions.php
+      - api/delete-submission.php
+      - api/test.php
+   4. Upload complete hone ka wait karein
+
+B) DATA FOLDER UPLOAD:
+   1. Pehle "data" naam se ek folder banayein (agar nahi hai)
+   2. Us folder mein ye files upload karein:
+      - data/.htaccess
+      - data/submissions.json
+   3. "data" folder par RIGHT-CLICK karein
+   4. "Change Permissions" ya "CHMOD" select karein
+   5. Number 755 ya 777 type karein
+   6. "OK" par click karein
+
+C) UPDATED FILES UPLOAD:
+   1. admin/dashboard.html - purani file ko replace karein
+   2. admin/login.html - purani file ko replace karein (agar updated hai)
+   3. js/form-handler.js - purani file ko replace karein
+   4. index.html - purani file ko replace karein (agar updated hai)
+   5. contact.html - purani file ko replace karein (agar updated hai)
+
+STEP 4: TEST KAREIN
+───────────────────────────────────────────────────────────────
+1. Browser mein jayein: https://cityscapeheights.com/api/test.php
+   → Agar JSON dikhe to sahi hai!
+
+2. Admin panel check karein:
+   https://cityscapeheights.com/admin/dashboard.html
+   → Ab data load hona chahiye
+
+═══════════════════════════════════════════════════════════════
+   IMPORTANT: DATA FOLDER PERMISSIONS
+═══════════════════════════════════════════════════════════════
+Data folder MUST be writable (755 or 777)
+Agar permissions set nahi kiye to forms save nahi honge!
+
+═══════════════════════════════════════════════════════════════
+

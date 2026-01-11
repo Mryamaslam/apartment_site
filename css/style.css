@@ -118,7 +118,7 @@ body {
 
 
 .hero-content h1 {
-    font-family: 'Cinzel', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 3.5rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -128,7 +128,7 @@ body {
 }
 
 .hero-content h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.8rem;
     font-weight: 400;
     margin-bottom: 30px;

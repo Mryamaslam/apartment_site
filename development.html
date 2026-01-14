@@ -119,6 +119,7 @@
             border-radius: 10px;
             overflow: hidden;
             margin-bottom: 20px;
+            min-height: 400px;
         }
         .development-video-container video {
             position: absolute;
@@ -128,6 +129,7 @@
             height: 100%;
             object-fit: contain;
             background: #000;
+            display: block;
         }
         .development-video-placeholder {
             position: absolute;
@@ -261,7 +263,7 @@
                 <div class="development-content">
                     <span class="development-category-badge">Concrete Work</span>
                     <div class="development-video-container">
-                        <video controls preload="metadata" playsinline>
+                        <video controls preload="metadata" playsinline webkit-playsinline>
                             <source src="assets/images/Dji 0953 2 1(1) (3).mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>

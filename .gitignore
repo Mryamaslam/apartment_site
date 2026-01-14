@@ -10,3 +10,7 @@ yarn-error.log
 # Editors
 .vscode/
 .idea/
+
+# Large video files
+assets/images/Dji 0953 2 1(1) (3).mp4
+*.mp4

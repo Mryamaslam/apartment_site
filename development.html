@@ -263,7 +263,7 @@
                 <div class="development-content">
                     <span class="development-category-badge">Concrete Work</span>
                     <div class="development-video-container">
-                        <video controls preload="metadata" playsinline webkit-playsinline>
+                        <video id="concrete-video" controls preload="metadata" playsinline webkit-playsinline>
                             <source src="assets/images/Dji 0953 2 1(1) (3).mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -339,18 +339,21 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
     <script>
-        // Video placeholder click handler (for when videos are added)
+        // Video error handling and loading
         document.addEventListener('DOMContentLoaded', function() {
-            const videoPlaceholders = document.querySelectorAll('.development-video-placeholder');
-            videoPlaceholders.forEach(placeholder => {
-                placeholder.addEventListener('click', function() {
-                    // When actual videos are added, this will play the video
-                    const video = this.parentElement.querySelector('video');
-                    if (video) {
-                        video.play();
-                    }
+            const video = document.getElementById('concrete-video');
+            if (video) {
+                video.addEventListener('error', function(e) {
+                    console.error('Video loading error:', e);
+                    console.error('Video source:', video.querySelector('source')?.src);
                 });
-            });
+                video.addEventListener('loadedmetadata', function() {
+                    console.log('Video metadata loaded successfully');
+                });
+                video.addEventListener('canplay', function() {
+                    console.log('Video can start playing');
+                });
+            }
         });
     </script>
 </body>

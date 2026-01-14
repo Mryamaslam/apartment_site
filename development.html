@@ -126,7 +126,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            background: #000;
         }
         .development-video-placeholder {
             position: absolute;
@@ -260,16 +261,10 @@
                 <div class="development-content">
                     <span class="development-category-badge">Concrete Work</span>
                     <div class="development-video-container">
-                        <div class="development-video-placeholder">
-                            <i class="fas fa-play-circle"></i>
-                            <span>Development Video</span>
-                            <small style="font-size: 0.9rem; opacity: 0.9;">25 seconds</small>
-                        </div>
-                        <!-- Replace with actual video when available -->
-                        <!-- <video controls>
-                            <source src="assets/videos/concrete-flooring.mp4" type="video/mp4">
+                        <video controls preload="metadata" playsinline>
+                            <source src="assets/images/Dji 0953 2 1(1) (3).mp4" type="video/mp4">
                             Your browser does not support the video tag.
-                        </video> -->
+                        </video>
                     </div>
                     <div class="development-description">
                         <p><strong>Latest Update:</strong> Concrete flooring work has been completed successfully. The flooring work is progressing well with all safety standards being maintained. The construction team is working diligently to ensure quality and timely completion.</p>

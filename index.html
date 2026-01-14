@@ -777,7 +777,7 @@
     </section>
 
     <!-- Reviews Preview Section -->
-    <section class="py-5 bg-light">
+    <section id="reviews-preview-section" class="py-5 bg-light">
         <div class="container">
             <div class="section-title">
                 <h2>Customer Reviews</h2>
@@ -786,9 +786,9 @@
                 <div class="col-lg-8 mx-auto text-center">
                     <p class="lead mb-4">See what our residents say about their experience at City Scape Heights</p>
                     <div class="row mb-4">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 col-6 mb-3">
                             <div class="card border-0 shadow-sm h-100">
-                                <div class="card-body">
+                                <div class="card-body text-center">
                                     <div class="mb-3">
                                         <i class="fas fa-star text-warning"></i>
                                         <i class="fas fa-star text-warning"></i>
@@ -796,30 +796,41 @@
                                         <i class="fas fa-star text-warning"></i>
                                         <i class="fas fa-star text-warning"></i>
                                     </div>
-                                    <h5 class="text-primary">4.8 Average Rating</h5>
-                                    <p class="text-muted mb-0">Based on 150+ reviews</p>
+                                    <h3 class="text-primary mb-2" id="rating-number">0</h3>
+                                    <p class="text-muted mb-0">Average Rating</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 col-6 mb-3">
                             <div class="card border-0 shadow-sm h-100">
-                                <div class="card-body">
+                                <div class="card-body text-center">
                                     <div class="mb-3">
                                         <i class="fas fa-users fa-2x text-primary"></i>
                                     </div>
-                                    <h5 class="text-primary">150+ Happy Residents</h5>
-                                    <p class="text-muted mb-0">Trusted by families</p>
+                                    <h3 class="text-primary mb-2" id="residents-number">0</h3>
+                                    <p class="text-muted mb-0">Happy Residents</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 col-6 mb-3">
                             <div class="card border-0 shadow-sm h-100">
-                                <div class="card-body">
+                                <div class="card-body text-center">
                                     <div class="mb-3">
                                         <i class="fas fa-heart fa-2x text-danger"></i>
                                     </div>
-                                    <h5 class="text-primary">95% Satisfaction</h5>
-                                    <p class="text-muted mb-0">Highly recommended</p>
+                                    <h3 class="text-primary mb-2" id="satisfaction-number">0</h3>
+                                    <p class="text-muted mb-0">Satisfaction Rate</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <i class="fas fa-comments fa-2x text-success"></i>
+                                    </div>
+                                    <h3 class="text-primary mb-2" id="reviews-number">0</h3>
+                                    <p class="text-muted mb-0">Total Reviews</p>
                                 </div>
                             </div>
                         </div>
@@ -997,6 +1008,58 @@
     <script src="js/form-handler.js?v=2.0" defer></script>
     <script src="js/script.js" defer></script>
     <script src="js/index-scripts.js" defer></script>
+    <script>
+        // Animate numbers counting up
+        function animateNumber(element, target, suffix = '', duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16); // 60fps
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                
+                if (target % 1 === 0) {
+                    // Integer
+                    element.textContent = Math.floor(current) + suffix;
+                } else {
+                    // Decimal (for rating)
+                    element.textContent = current.toFixed(1) + suffix;
+                }
+            }, 16);
+        }
+
+        // Use Intersection Observer to trigger animation when section is visible
+        document.addEventListener('DOMContentLoaded', function() {
+            const reviewsSection = document.querySelector('#reviews-preview-section');
+            if (!reviewsSection) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Start animations
+                        const ratingEl = document.getElementById('rating-number');
+                        const residentsEl = document.getElementById('residents-number');
+                        const satisfactionEl = document.getElementById('satisfaction-number');
+                        const reviewsEl = document.getElementById('reviews-number');
+
+                        if (ratingEl) animateNumber(ratingEl, 4.8);
+                        if (residentsEl) animateNumber(residentsEl, 150, '+');
+                        if (satisfactionEl) animateNumber(satisfactionEl, 95, '%');
+                        if (reviewsEl) animateNumber(reviewsEl, 200, '+');
+
+                        // Stop observing after animation starts
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(reviewsSection);
+        });
+    </script>
 </body>
 </html>
 

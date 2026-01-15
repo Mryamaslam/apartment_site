@@ -168,6 +168,31 @@
             font-weight: 600;
             margin-bottom: 15px;
         }
+        .development-status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: auto;
+        }
+        .development-status-badge.done {
+            background: #28a745;
+            color: white;
+        }
+        .development-status-badge.in-progress {
+            background: #007bff;
+            color: white;
+        }
+        .development-card-header {
+            position: relative;
+        }
+        .status-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
         .timeline-connector {
             width: 3px;
             background: linear-gradient(to bottom, var(--primary-red), var(--primary-gold));
@@ -255,22 +280,67 @@
                         <i class="fas fa-folder development-folder-icon"></i>
                         <h3>Concrete Pouring</h3>
                     </div>
-                    <div class="development-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>January 20, 2025</span>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="development-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>January 20, 2025</span>
+                        </div>
+                        <span class="development-status-badge done">
+                            <i class="fas fa-check-circle me-2"></i>Done
+                        </span>
                     </div>
                 </div>
                 <div class="development-content">
                     <span class="development-category-badge">Concrete Work</span>
                     <div class="development-video-container">
-                        <video id="concrete-video" controls preload="metadata" playsinline webkit-playsinline style="width: 100%; height: 100%; display: block;">
+                        <video id="concrete-video" 
+                               controls 
+                               preload="auto" 
+                               playsinline 
+                               webkit-playsinline 
+                               muted
+                               style="width: 100%; height: 100%; display: block; background: #000;">
                             <source src="assets/images/Final(3) (1).mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
+                        <div id="video-loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; display: none;">
+                            <i class="fas fa-spinner fa-spin fa-3x"></i>
+                            <p>Loading video...</p>
+                        </div>
+                        <div id="video-error" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; display: none;">
+                            <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                            <p>Video failed to load. Please refresh the page.</p>
+                        </div>
                     </div>
                     <div class="development-description">
                         <p><strong>Latest Update:</strong> Concrete flooring work has been completed successfully. The flooring work is progressing well with all safety standards being maintained. The construction team is working diligently to ensure quality and timely completion.</p>
                         <p><strong>Progress:</strong> Foundation concrete flooring completed. Next phase includes structural framework installation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Development Card (Ground Floor Development) -->
+            <div class="development-card development-item" data-category="ground-floor">
+                <div class="development-card-header">
+                    <div class="development-title">
+                        <i class="fas fa-folder development-folder-icon"></i>
+                        <h3>Ground Floor Development</h3>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="development-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>February 1, 2025</span>
+                        </div>
+                        <span class="development-status-badge in-progress">
+                            <i class="fas fa-tools me-2"></i>In Progress
+                        </span>
+                    </div>
+                </div>
+                <div class="development-content">
+                    <span class="development-category-badge">Ground Floor Work</span>
+                    <div class="development-description">
+                        <p><strong>Latest Update:</strong> Ground floor development work is currently underway. The construction team is focusing on structural framework and initial installations.</p>
+                        <p><strong>Progress:</strong> Ground floor framework installation in progress. Foundation work completed successfully.</p>
                     </div>
                 </div>
             </div>
@@ -342,16 +412,66 @@
         // Video error handling and loading
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.getElementById('concrete-video');
+            const loadingIndicator = document.getElementById('video-loading');
+            const errorIndicator = document.getElementById('video-error');
+            
             if (video) {
-                video.addEventListener('error', function(e) {
-                    console.error('Video loading error:', e);
-                    console.error('Video source:', video.querySelector('source')?.src);
+                // Show loading indicator
+                if (loadingIndicator) loadingIndicator.style.display = 'block';
+                
+                // Try to load video
+                video.load();
+                
+                // Handle video events
+                video.addEventListener('loadstart', function() {
+                    console.log('Video loading started');
+                    if (loadingIndicator) loadingIndicator.style.display = 'block';
+                    if (errorIndicator) errorIndicator.style.display = 'none';
                 });
+                
                 video.addEventListener('loadedmetadata', function() {
                     console.log('Video metadata loaded successfully');
                 });
+                
                 video.addEventListener('canplay', function() {
                     console.log('Video can start playing');
+                    if (loadingIndicator) loadingIndicator.style.display = 'none';
+                    if (errorIndicator) errorIndicator.style.display = 'none';
+                });
+                
+                video.addEventListener('canplaythrough', function() {
+                    console.log('Video fully loaded and ready to play');
+                    if (loadingIndicator) loadingIndicator.style.display = 'none';
+                });
+                
+                video.addEventListener('error', function(e) {
+                    console.error('Video loading error:', e);
+                    console.error('Video error code:', video.error?.code);
+                    console.error('Video error message:', video.error?.message);
+                    console.error('Video source:', video.querySelector('source')?.src);
+                    
+                    if (loadingIndicator) loadingIndicator.style.display = 'none';
+                    if (errorIndicator) errorIndicator.style.display = 'block';
+                    
+                    // Try alternative path if main path fails
+                    const source = video.querySelector('source');
+                    if (source && !source.src.includes('http')) {
+                        // Try with absolute path from GitHub Pages
+                        const currentPath = window.location.origin;
+                        const newSrc = currentPath + '/assets/images/Final(3) (1).mp4';
+                        console.log('Trying alternative path:', newSrc);
+                        source.src = newSrc;
+                        video.load();
+                    }
+                });
+                
+                // Handle network issues
+                video.addEventListener('stalled', function() {
+                    console.warn('Video loading stalled');
+                });
+                
+                video.addEventListener('waiting', function() {
+                    console.warn('Video waiting for data');
                 });
             }
         });

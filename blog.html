@@ -67,6 +67,9 @@
             object-fit: cover;
             background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
         }
+        .blog-card img.blog-image {
+            display: block;
+        }
         .blog-content {
             padding: 25px;
             flex-grow: 1;
@@ -251,146 +254,27 @@
                     <!-- Blog Posts Grid -->
                     <div class="row" id="blogPosts">
                         <!-- Blog Post 1 -->
-                        <div class="col-md-6 mb-4 blog-post-item" data-category="news" data-tags="apartments,launch">
+                        <div class="col-md-6 mb-4 blog-post-item" data-category="lifestyle" data-tags="amenities,luxury,service-apartments">
                             <div class="blog-card">
-                                <div class="blog-image" style="background: linear-gradient(135deg, #8B0000, #D4AF37); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-building"></i>
-                                </div>
+                                <img src="assets/images/blog/blog-image1.jpeg" alt="Experience Luxury Living with World-Class Amenities" class="blog-image">
                                 <div class="blog-content">
-                                    <span class="blog-category">News</span>
-                                    <h3 class="blog-title"><a href="blog-post-1.html">City Scape Heights: Your Gateway to Luxury Living in Lahore</a></h3>
+                                    <span class="blog-category">Lifestyle & Amenities</span>
+                                    <h3 class="blog-title"><a href="blog-post-luxury-living-amenities.html">Experience Luxury Living with World-Class Amenities at Faletti's</a></h3>
                                     <div class="blog-meta">
-                                        <span><i class="far fa-calendar"></i> January 15, 2025</span>
+                                        <span><i class="far fa-calendar"></i> January 23, 2025</span>
                                         <span><i class="far fa-user"></i> Admin</span>
                                     </div>
                                     <p class="blog-excerpt">
-                                        Discover the epitome of luxury living at City Scape Heights. Our modern apartments offer the perfect blend of comfort, style, and convenience in the heart of Lahore.
+                                        Discover Faletti's Service Apartments at City Scape Height's - offering world-class amenities, 24/7 security, and premium serviced living in a prime urban location.
                                     </p>
-                                    <a href="blog-post-1.html" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Blog Post 2 -->
-                        <div class="col-md-6 mb-4 blog-post-item" data-category="tips" data-tags="investment,real-estate">
-                            <div class="blog-card">
-                                <div class="blog-image" style="background: linear-gradient(135deg, #17a2b8, #8B0000); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <div class="blog-content">
-                                    <span class="blog-category">Investment Tips</span>
-                                    <h3 class="blog-title"><a href="blog-post-2.html">Why Investing in Lahore Real Estate is a Smart Choice in 2025</a></h3>
-                                    <div class="blog-meta">
-                                        <span><i class="far fa-calendar"></i> January 10, 2025</span>
-                                        <span><i class="far fa-user"></i> Admin</span>
-                                    </div>
-                                    <p class="blog-excerpt">
-                                        Lahore's real estate market continues to show strong growth potential. Learn why investing in luxury apartments is one of the best decisions you can make this year.
-                                    </p>
-                                    <a href="blog-post-2.html" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Blog Post 3 -->
-                        <div class="col-md-6 mb-4 blog-post-item" data-category="lifestyle" data-tags="amenities,living">
-                            <div class="blog-card">
-                                <div class="blog-image" style="background: linear-gradient(135deg, #D4AF37, #8B0000); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-swimming-pool"></i>
-                                </div>
-                                <div class="blog-content">
-                                    <span class="blog-category">Lifestyle</span>
-                                    <h3 class="blog-title"><a href="blog-post-3.html">Top 5 Amenities That Make City Scape Heights Special</a></h3>
-                                    <div class="blog-meta">
-                                        <span><i class="far fa-calendar"></i> January 5, 2025</span>
-                                        <span><i class="far fa-user"></i> Admin</span>
-                                    </div>
-                                    <p class="blog-excerpt">
-                                        From state-of-the-art fitness centers to luxurious swimming pools, explore the premium amenities that set City Scape Heights apart from other residential projects.
-                                    </p>
-                                    <a href="blog-post-3.html" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Blog Post 4 -->
-                        <div class="col-md-6 mb-4 blog-post-item" data-category="location" data-tags="lahore,connectivity">
-                            <div class="blog-card">
-                                <div class="blog-image" style="background: linear-gradient(135deg, #8B0000, #17a2b8); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </div>
-                                <div class="blog-content">
-                                    <span class="blog-category">Location</span>
-                                    <h3 class="blog-title"><a href="blog-post-4.html">Prime Location: Why Raiwind Road is the Perfect Choice</a></h3>
-                                    <div class="blog-meta">
-                                        <span><i class="far fa-calendar"></i> January 3, 2025</span>
-                                        <span><i class="far fa-user"></i> Admin</span>
-                                    </div>
-                                    <p class="blog-excerpt">
-                                        Located on Raiwind Road, City Scape Heights offers excellent connectivity to major areas of Lahore. Discover why this location is ideal for modern living.
-                                    </p>
-                                    <a href="blog-post-4.html" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Blog Post 5 -->
-                        <div class="col-md-6 mb-4 blog-post-item" data-category="design" data-tags="interior,architecture">
-                            <div class="blog-card">
-                                <div class="blog-image" style="background: linear-gradient(135deg, #D4AF37, #17a2b8); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-home"></i>
-                                </div>
-                                <div class="blog-content">
-                                    <span class="blog-category">Design</span>
-                                    <h3 class="blog-title"><a href="blog-post-5.html">Modern Architecture Meets Luxury: The Design Philosophy of City Scape Heights</a></h3>
-                                    <div class="blog-meta">
-                                        <span><i class="far fa-calendar"></i> January 1, 2025</span>
-                                        <span><i class="far fa-user"></i> Admin</span>
-                                    </div>
-                                    <p class="blog-excerpt">
-                                        Explore the architectural excellence and design philosophy behind City Scape Heights. Every detail is crafted to provide the ultimate living experience.
-                                    </p>
-                                    <a href="blog-post-5.html" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Blog Post 6 -->
-                        <div class="col-md-6 mb-4 blog-post-item" data-category="tips" data-tags="booking,guide">
-                            <div class="blog-card">
-                                <div class="blog-image" style="background: linear-gradient(135deg, #17a2b8, #D4AF37); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-handshake"></i>
-                                </div>
-                                <div class="blog-content">
-                                    <span class="blog-category">Guide</span>
-                                    <h3 class="blog-title"><a href="blog-post-6.html">Complete Guide to Booking Your Dream Apartment at City Scape Heights</a></h3>
-                                    <div class="blog-meta">
-                                        <span><i class="far fa-calendar"></i> December 30, 2024</span>
-                                        <span><i class="far fa-user"></i> Admin</span>
-                                    </div>
-                                    <p class="blog-excerpt">
-                                        Step-by-step guide to booking your apartment. Learn about payment plans, documentation, and everything you need to know before making your investment.
-                                    </p>
-                                    <a href="blog-post-6.html" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                    <a href="blog-post-luxury-living-amenities.html" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Pagination -->
-                    <nav aria-label="Blog pagination" class="mt-5">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <!-- Pagination will be added here when you have more blog posts -->
                 </div>
 
                 <!-- Sidebar -->
@@ -408,22 +292,7 @@
                     <div class="blog-sidebar">
                         <h4><i class="fas fa-folder me-2"></i>Categories</h4>
                         <div class="sidebar-item">
-                            <a href="#" onclick="filterByCategory('news'); return false;">News <span class="float-end text-muted">(2)</span></a>
-                        </div>
-                        <div class="sidebar-item">
-                            <a href="#" onclick="filterByCategory('tips'); return false;">Investment Tips <span class="float-end text-muted">(2)</span></a>
-                        </div>
-                        <div class="sidebar-item">
-                            <a href="#" onclick="filterByCategory('lifestyle'); return false;">Lifestyle <span class="float-end text-muted">(1)</span></a>
-                        </div>
-                        <div class="sidebar-item">
-                            <a href="#" onclick="filterByCategory('location'); return false;">Location <span class="float-end text-muted">(1)</span></a>
-                        </div>
-                        <div class="sidebar-item">
-                            <a href="#" onclick="filterByCategory('design'); return false;">Design <span class="float-end text-muted">(1)</span></a>
-                        </div>
-                        <div class="sidebar-item">
-                            <a href="#" onclick="filterByCategory('guide'); return false;">Guide <span class="float-end text-muted">(1)</span></a>
+                            <a href="#" onclick="filterByCategory('lifestyle'); return false;">Lifestyle & Amenities <span class="float-end text-muted">(1)</span></a>
                         </div>
                     </div>
 
@@ -431,20 +300,8 @@
                     <div class="blog-sidebar">
                         <h4><i class="fas fa-clock me-2"></i>Recent Posts</h4>
                         <div class="sidebar-item">
-                            <a href="blog-post-1.html">City Scape Heights: Your Gateway to Luxury Living</a>
-                            <small class="d-block text-muted mt-1">January 15, 2025</small>
-                        </div>
-                        <div class="sidebar-item">
-                            <a href="blog-post-2.html">Why Investing in Lahore Real Estate is Smart</a>
-                            <small class="d-block text-muted mt-1">January 10, 2025</small>
-                        </div>
-                        <div class="sidebar-item">
-                            <a href="blog-post-3.html">Top 5 Amenities That Make Us Special</a>
-                            <small class="d-block text-muted mt-1">January 5, 2025</small>
-                        </div>
-                        <div class="sidebar-item">
-                            <a href="blog-post-4.html">Prime Location: Why Raiwind Road is Perfect</a>
-                            <small class="d-block text-muted mt-1">January 3, 2025</small>
+                            <a href="blog-post-luxury-living-amenities.html">Experience Luxury Living with World-Class Amenities</a>
+                            <small class="d-block text-muted mt-1">January 23, 2025</small>
                         </div>
                     </div>
 
@@ -452,18 +309,9 @@
                     <div class="blog-sidebar">
                         <h4><i class="fas fa-tags me-2"></i>Tags</h4>
                         <div>
-                            <a href="#" class="tag-badge" onclick="filterByTag('apartments'); return false;">Apartments</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('investment'); return false;">Investment</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('launch'); return false;">Launch</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('real-estate'); return false;">Real Estate</a>
                             <a href="#" class="tag-badge" onclick="filterByTag('amenities'); return false;">Amenities</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('living'); return false;">Living</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('lahore'); return false;">Lahore</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('connectivity'); return false;">Connectivity</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('interior'); return false;">Interior</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('architecture'); return false;">Architecture</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('booking'); return false;">Booking</a>
-                            <a href="#" class="tag-badge" onclick="filterByTag('guide'); return false;">Guide</a>
+                            <a href="#" class="tag-badge" onclick="filterByTag('luxury'); return false;">Luxury</a>
+                            <a href="#" class="tag-badge" onclick="filterByTag('service-apartments'); return false;">Service Apartments</a>
                         </div>
                     </div>
                 </div>
